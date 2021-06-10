@@ -22,13 +22,20 @@ public class ClientController {
                  produces = MediaType.APPLICATION_JSON_VALUE,
                  consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CheckDto> check(@RequestBody ClientDto client) {
-        //var check = clientService.check();
         log.info("client is {}", client);
+        if (client.isAdult() && client.getAge() >= 80) {
+            var checkDto = new CheckDto()
+                    .setBlocked(true)
+                    .setAdult(true);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(checkDto);
+        }
         if (client.isNotAdult()) {
             var checkDto = new CheckDto().setAdult(false);
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
                                  .body(checkDto);
         }
+
         return ResponseEntity.status(HttpStatus.OK)
                              .body(new CheckDto().setAdult(true));
     }
