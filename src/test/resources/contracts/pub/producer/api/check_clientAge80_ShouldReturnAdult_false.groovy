@@ -31,7 +31,7 @@ then:
     response {
         status 403
         body("""
-			{"adult":false,"blocked":false,"debtor":false,"debt":0}
+			{"adult":true,"blocked":true,"debtor":false,"debt":0}
 			""")
         headers {
             contentType(applicationJson())
