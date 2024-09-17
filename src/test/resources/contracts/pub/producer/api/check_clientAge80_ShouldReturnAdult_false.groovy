@@ -22,16 +22,16 @@ then:
         method POST()
         url '/clients/1/check'
         body(
-                age: $(regex("[2-7][0-9]"))
+                age: $(regex("[8-9][0-9]"))
         )
         headers {
             contentType(applicationJson())
         }
     }
     response {
-        status 200
+        status 403
         body("""
-			{"adult":true,"blocked":false,"debtor":false,"debt":0}
+			{"adult":true,"blocked":true,"debtor":false,"debt":0}
 			""")
         headers {
             contentType(applicationJson())
